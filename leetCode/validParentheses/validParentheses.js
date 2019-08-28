@@ -1,31 +1,38 @@
-
-let string = `"({})[]"`;
-
-
-
-//1.) Make array to reference each :
-
-let open = ["{", "(", "[",];
-let closed = ["}", ")", "]",];
-
+// https://medium.com/@paulrohan/parenthesis-matching-problem-in-javascript-the-hacking-school-hyd-7d7708278911
+let string = `({})({}){}[]`;
 
 var isValid = function(s) {
-    let stack = [];
+  let stack = [];
+  let key = {
+    "(": ")",
+    "{": "}",
+    "[": "]"
+  };
 
-    let check;
+  console.log('hello');
 
+  for(var i=0; i<s.length; i++){
+      if(s[i] === '(' || s[i] === "[" || s[i] === "{"){
+          stack.push(s[i])
+      }else{
+          console.log(stack);
+          let last = stack.pop();
 
-    for(var i=0; i<s.length; i++){
-        check = s[i];
+          if(s[i] !== key[last]){
+              console.log('FAILED');
+              return false
+          }
+      }
+  }
 
-        if(check > s[-1]){
-            console.log('no ')
-        }
+  if(stack.length !==0){
+      console.log('failed at the end');
+      return false
+  }
 
-        console.log(check)
-    }
+  console.log('PASSED');
+  return true
 
 };
-
 
 isValid(string);
